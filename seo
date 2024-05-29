@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicio De Emergencia Online</title>
+    <style>
+        /* Estilos existentes */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #005073;
+            color: #fff;
+            padding: 20px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header .logo {
+            display: flex;
+            align-items: center;
+        }
+        header img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav {
+            padding: 10px;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        nav li {
+            margin: 0 10px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            cursor: pointer;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        section {
+            padding: 20px;
+        }
+        footer {
+            background-color: #005073;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .quienes-somos {
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Estilos para la sección de opiniones */
+        #opiniones {
+            display: none; /* Para ocultar la sección inicialmente */
+        }
+        #opiniones form {
+            margin-bottom: 20px;
+        }
+        #opiniones form input[type="text"],
+        #opiniones form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #opiniones form input[type="submit"] {
+            background-color: #005073;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #opiniones .opinion {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        /* Estilos para el menú desplegable */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .recomendaciones-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .recomendaciones-item {
+            text-align: center;
+        }
+        .recomendaciones-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* Estilos adicionales */
+        .full-width-img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="gato.png" alt="Icono de servicio de emergencia">
+            <h1>Servicio De Emergencia Online</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="mostrarContenido('inicio')">Inicio</a></li>
+                <li class="dropdown">
+                  <a href="#">Infórmate</a>
+                     <div class="dropdown-content">
+                        <a href="#" onclick="mostrarContenido('Noticias')">Noticias</a>
+                        <a href="#" onclick="mostrarContenido('Mapa de desastres')">Mapa de desastres</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#">Preparáte</a>
+                    <div class="dropdown-content">
+					   <a href="#" onclick="mostrarContenido('Qué hacer')">Recomendaciones</a>
+                        <a href="#" onclick="mostrarContenido('Kit de emergencia')">Kit de emergencia</a>
+						<a href="#" onclick="mostrarContenido('Contactos de emergencia')">Contactos de emergencia</a>
+                    </div>
+                </li>
+                <li><a href="#" onclick="mostrarContenido('Opiniones')">Opiniones</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="inicio">
+	<div style="text-align: center;">
+        <h2>¿Quiénes Somos?</h2>
+        <p>Somos un equipo de estudiantes de CEDUC UCN dedicados a un proyecto académico para la creación de una aplicación que informará sobre aluviones, incendios y otros problemas ambientales. Nuestro objetivo es proporcionar herramientas efectivas para la gestión de crisis, facilitando la toma de decisiones informadas y promoviendo la seguridad ambiental en nuestras comunidades.</p>
+		</div>
+    </section>
+	<section id="Kit de emergencia" style="display: none;">
+	 <div style="background-color: #e2504c; border: 2px solid #e2504c; padding: 10px; margin-bottom: 10px;">
+    <h3 onclick="mostrarSubtitulo('basico')"  style="margin: 0;  color: #fff;">KIT DE EMERGENCIA BÁSICO</h3>
+	</div>
+    <div id="basico" style="display: none;">
+	<div style="background-color: #ff9688; padding: 10px; border-radius: 5px;">
+		<p>- Agua: Considera 2 litros por persona al día (preferiblemente botellas pequeñas, que son más faciles de trasladar).</p>
+		<p>- Comida: Latas, barras energéticas, comida deshidratada,etc.</p>
+		<p>- Abrelatas manual.</p>
+		<p>- Linternas y pilas de repuesto.</p>
+		<p>- Papel higienico.</P>
+		<p>- Medicamentos, anteojos, etc. (Considera las necesides de niños, tercera edad y discapacitados).</P>
+		<P>- Botiquín de primeros auxilios.</P>
+		<p>- Llaves de repuesto de tu casa y auto.</P>
+		<p>- Dinero en efectivio</P>
+		<p>- Cargador de celular (solar o portatil).</P>
+		<p>- Ropa de abrigo o manta termica.</P>
+		</div>
+    </div>
+	
+	  <div style="background-color: #5086c1; border: 2px solid #5086c1; padding: 10px; margin-bottom: 10px;">
+    <h3 onclick="mostrarSubtitulo('auto')"   style="margin: 0;  color: #fff;">KIT DE EMERGENCIA PARA EL AUTO</h3>
+	</div>
+    <div id="auto" style="display: none;">
+	<div style="background-color: #84b6f4; padding: 10px; border-radius: 5px;">
+        <p>- Agua embotellada.</p>
+		<p>- Alimentos no perecibles.</P>
+		<p>- Medicamentos necesarios.</P>
+		<p>- Una muda de ropa.</P>
+		<p>- Linternas y pilas de repuesto.</P>
+		<p>- Extintor.</P>
+		<p>- Señales luminosas</P>
+		<p>- Herramientas</P>
+		<p>- Bolsas plasticas</P>
+		<p>- Mapas</p>
+		</div>
+    </div>
+	
+	<div style="background-color: #bc4ed8; border: 2px solid #bc4ed8; padding: 10px; margin-bottom: 10px;">
+    <h3 onclick="mostrarSubtitulo('adicionales')"   style="margin: 0;  color: #fff;">PROVISIONES ADICIONALES</h3>
+	</div>
+    <div id="adicionales" style="display: none;">
+	<div style="background-color: #f988ff; padding: 10px; border-radius: 5px;">
+        <p>- Saco de dormir o una frazada.</p>
+		<p>- Artículos de aseo.</P>
+		<P>- Velas, encendedores o fosforos.</P>
+		<p>- Utensilios de cocina (al menos dos ollas).</P>
+		<p>- Cocinilla</P>
+		<p>- Bolsas de basura</P>
+		<p>- Cloro o tabletas para purificar agua.</P>
+		<p>- Silbato.</P>	
+		</div>
+    </div>
+</section>
+
+    <section id="Qué hacer">
+<h2>RECOMENDACIONES</h2>
+        <div class="recomendaciones-grid">
+            <div class="recomendaciones-item">
+                <a href="#incendios-estructurales" onclick="mostrarContenido('incendios-estructurales')"><img src="https://web.senapred.cl/wp-content/uploads/2021/06/9.png" alt="Incendios estructurales"></a>
+                <p><a href="#incendios-estructurales" onclick="mostrarContenido('incendios-estructurales')">Incendios estructurales</a></p>
+            </div>
+            <div class="recomendaciones-item">
+                <a href="#incendios-forestales" onclick="mostrarContenido('incendios-forestales')"><img src="https://web.senapred.cl/wp-content/uploads/2021/06/7.png" alt="Incendios forestales"></a>
+                <p><a href="#incendios-forestales" onclick="mostrarContenido('incendios-forestales')">Incendios forestales</a></p>
+            </div>
+            <div class="recomendaciones-item">
+                <a href="#aluviones" onclick="mostrarContenido('aluviones')"><img src="https://web.senapred.cl/wp-content/uploads/2021/06/5.png" alt="Aluviones"></a>
+                <p><a href="#aluviones" onclick="mostrarContenido('aluviones')">Aluviones</a></p>
+            </div>
+            <div class="recomendaciones-item">
+                <a href="#deslizamientos" onclick="mostrarContenido('deslizamientos')"><img src="https://web.senapred.cl/wp-content/uploads/2023/03/deslizamientos_web1.jpg" alt="Deslizamientos"></a>
+                <p><a href="#deslizamientos" onclick="mostrarContenido('deslizamientos')">Deslizamientos</a></p>
+            </div>
+            <div class="recomendaciones-item">
+                <a href="#inundaciones" onclick="mostrarContenido('inundaciones')"><img src="https://web.senapred.cl/wp-content/uploads/2021/06/11.png" alt="Inundaciones"></a>
+                <p><a href="#inundaciones" onclick="mostrarContenido('inundaciones')">Inundaciones</a></p>
+            </div>
+            <div class="recomendaciones-item">
+                <a href="#tsunami" onclick="mostrarContenido('tsunami')"><img src="https://web.senapred.cl/wp-content/uploads/2021/06/6.png" alt="Tsunami"></a>
+                <p><a href="#tsunami" onclick="mostrarContenido('tsunami')">Tsunami</a></p>
+            </div>
+            <div class="recomendaciones-item">
+                <a href="#tormentas-electricas" onclick="mostrarContenido('tormentas-electricas')"><img src="https://web.senapred.cl/wp-content/uploads/2021/06/1.png" alt="Tormentas eléctricas"></a>
+                <p><a href="#tormentas-electricas" onclick="mostrarContenido('tormentas-electricas')">Tormentas eléctricas</a></p>
+            </div>
+            <div class="recomendaciones-item">
+                <a href="#tormentas-de-polvo" onclick="mostrarContenido('tormentas-de-polvo')"><img src="https://web.senapred.cl/wp-content/uploads/2021/06/15.png" alt="Tormentas de polvo"></a>
+                <p><a href="#tormentas-de-polvo" onclick="mostrarContenido('tormentas-de-polvo')">Tormentas de polvo</a></p>
+            </div>
+            <div class="recomendaciones-item">
+                <a href="#sismos" onclick="mostrarContenido('sismos')"><img src="https://web.senapred.cl/wp-content/uploads/2021/06/10.png" alt="Sismos"></a>
+                <p><a href="#sismos" onclick="mostrarContenido('sismos')">Sismos</a></p>
+            </div>
+        </div>
+    </section>
+	
+	<section id="incendios-estructurales" style="display: none;">
+        <img src="https://web.senapred.cl/wp-content/uploads/2021/04/encabezado_incendio_estructural.png" alt="incendios estructurales" class="full-width-img">
+        <h2>¿Qué es un Incendio estructural?</h2>
+        <p>Un incendio estructural corresponde a aquel tipo de incendio que se produce en casas, edificios, locales comerciales, industrias, fabricas, etc.</p>
+		<p>Entre las principales causas de estos incendios se encuentran los accidentes domésticos, fallas eléctricas, manipulación inadecuada de líquidos inflamables, fugas de gases combustibles, acumulación de basura, velas y cigarros mal apagados, artefactos de calefacción en mal estado y niños jugando con fósforos, entre otros</p>
+		<div style="text-align: center;">
+		<p><strong>EN CASO DE EMERGENCIA LLAMA A BOMBEROS AL 132</strong></p>
+		</div>
+		<p>Como prevenir un incendio estructrural</p>
+    </section>
+    
+    <section id="incendios-forestales" style="display: none;">
+	 <img src="https://web.senapred.cl/wp-content/uploads/2021/04/encabezado_incedio_forestal.png" alt="incendios forestales" class="full-width-img">
+        <h2>¿Qué es un Incendio forestal?</h2>
+        <p>Un incendio forestal es un fuego que, cualquiera sea su origen, se propaga sin control en terrenos rurales o cerca de viviendas, a través de árboles, matorrales y pastizales, verdes y/o secos.</p>
+		<p>En el mundo, los incendios forestales constituyen la causa más importante de destrucción de vegetación. Estos se incrementan y propagan con mayor facilidad cuando hay altas temperaturas, fuertes vientos, sequedad de la vegetación y del ambiente. En un incendio forestal, además, se pueden perder viviendas, animales, fuentes de trabajo e incluso vidas humanas.</p>
+		<div style="text-align: center;">
+		<p><strong>EN CASO DE EMERGENCIA PUEDES LLAMAR A LOS SIGUIENTES NUMEROS: CONAF AL 130, BOMBEROS AL 132, CARABINEROS AL 133.</strong></p>
+		</div>
+		<p>Qué hacer en caso de un incendio forestal cercano a un inmueble</p>
+    </section>
+    
+    <section id="aluviones" style="display: none;">
+	 <img src="https://web.senapred.cl/wp-content/uploads/2021/04/encabezado_aluviones.png" alt="aluviones" class="full-width-img">
+        <h2>¿Qué es un aluvión? </h2>
+        <p>Un aluvión es un flujo de barro donde el agua arrastra el material suelto (detritos) por una ladera, quebrada o cauce.</p>
+		<p>Puede viajar muchos kilómetros desde su origen, aumentando de tamaño a medida que avanza pendiente abajo transportando rocas, hojas, ramas, árboles y otros elementos, alcanzando gran velocidad.</p>
+		<p>De acuerdo a las características de ocupación territorial, un aluvión puede provocar pérdidas de vidas humanas y cuantiosos daños en viviendas, obras civiles, instalaciones mineras, obras de riego, telecomunicaciones, etc.</p>
+		<p>Que hacer en caso de un aluvión</p>
+    </section>
+    
+    <section id="deslizamientos" style="display: none;">
+	<img src="https://web.senapred.cl/wp-content/uploads/2023/03/deslizamientos_web2-2048x354.jpg" alt="deslizamientos" class="full-width-img">
+        <h2>¿Qué son los deslizamientos</h2>
+        <p>Un deslizamiento es un movimiento ladera abajo de una masa de suelo o roca, cuyo desplazamiento ocurre predominantemente a lo largo de una superficie de falla o de una delgada zona en donde ocurre una gran deformación cortante. </p>
+		<p>La zona de mayor impacto y peligro se presenta en la base de la ladera.</p>
+    </section>
+    
+    <section id="inundaciones" style="display: none;">
+	<img src="https://web.senapred.cl/wp-content/uploads/2021/04/encabezado_inundaciones.png" alt="inundaciones" class="full-width-img">
+        <h2>¿Qué son las inundaciones?</h2>
+        <p>Las inundaciones pueden definirse como la ocupación por el agua de zonas o áreas que en condiciones normales se encuentran secas. Se producen debido al efecto del ascenso temporal del nivel del río, lago u otro.</p>
+		<p>Las inundaciones se producen principalmente por la ocurrencia de lluvias intensas prolongadas, como sucede durante las tormentas tropicales y el paso de huracanes, unido a dificultades locales en las alcantarillas y canoas provocado por diferentes causas, principalmente por la acción negligente de las personas.</P>
+		<p>Qué hacer en caso de una inundación</p>
+    </section>
+    
+    <section id="tsunami" style="display: none;">
+	<img src="https://web.senapred.cl/wp-content/uploads/2021/04/encabezado_tsunami.png" alt="tsunami" class="full-width-img">
+        <h2>¿Qué es un tsunami?</h2>
+        <p>Los tsunamis son un fenómeno de la naturaleza de gran poder destructivo que afecta las zonas costeras y que habitualmente son una consecuencia de un sismo superior a una magnitud 7.0 , ocurrido bajo o cerca del fondo oceánico. </p>
+		<p>Los tsunamis causados por sismos cercanos a la costa pueden arribar en pocos minutos y sus efectos continuar por varias horas después de ocurrido el sismo. Los tsunamis también pueden ser generados en lugares distantes, ubicados a miles de kilómetros, demorando horas en arribar a las costas más lejanas.</p>
+    </section>
+    
+    <section id="tormentas-electricas" style="display: none;">
+	<img src="https://web.senapred.cl/wp-content/uploads/2021/04/encabezado_tormeta_electrica.png" alt="tormentas electricas" class="full-width-img">
+        <h2>¿Qué son las tormentas eléctricas?</h2>
+        <p>Las tormentas eléctricas son descargas bruscas de electricidad atmosférica que se manifiestan por un resplandor breve (rayo) y por un ruido seco o estruendo (trueno).</p>
+	    <p>Las tormentas se asocian a nubes convectivas (cumulunimbus) y pueden estar acompañadas de precipitación en forma de chubascos; pero en ocasiones puede ser nieve o granizo.</p>
+		<p>Si estás en una casa o edificio</p>
+		<p>Si estás al aire libre</p>
+    </section>
+    
+    <section id="tormentas-de-polvo" style="display: none;">
+	<img src="https://web.senapred.cl/wp-content/uploads/2021/04/encabezado_tormenta_polvo.png" alt="tormentas de polvo" class="full-width-img">
+        <h2>¿Qué son las tormentas de polvo?</h2>
+        <p>Las tormentas de polvo son un fenómeno meteorológico de Mesoescala (uno a cientos de kilómetros) que se caracterizan por vientos intensos, los que suelen estar acompañados de masas de aire de características secas que atraviesan zonas áridas. La superficie de estas áreas, está cubierta por arena y polvo la que con presencia de fuertes vientos, levantarán los distintos granos del suelo y los más livianos se elevarán y adoptarán la forma de una gran nube oscura que puede
+alcanzar varios cientos de metros de altura, recorriendo grandes distancias en el
+aire (kms.).</p>
+	    <p>Si estás en una casa o edificio</p>
+		<p>Si estás al aire libre</p>
+    </section>
+    
+    <section id="sismos" style="display: none;">
+	<img src="https://web.senapred.cl/wp-content/uploads/2023/03/encabezado_sismos.png" alt="sismos" class="full-width-img">
+        <h2>¿Qué son los sismos?</h2>
+        <p>Un sismo es el movimiento brusco de la Tierra causado por la liberación de energía acumulada durante un largo tiempo. Habitualmente estos movimientos son lentos e imperceptibles, pero en algunos el desplazamiento libera una gran cantidad de energía, cuando una de las placas se mueve bruscamente contra la otra, rompiéndola y originando el Terremoto.</p>
+	    <p>La mayoría de los sismos destructores en Chile están relacionados al movimiento convergente de la placa de Nazca por debajo de la placa Sudamericana; estas placas que se comprimen entre sí, acumulan una gran cantidad de energía a lo largo de su zona de contacto, produciendo deformación en sus bordes. Cuando la energía almacenada es lo suficientemente grande, estas placas se mueven liberando parte de la energía y deformación acumulada durante decenas o cientos de años.</p>
+	    <p>Los efectos que pueden ocasionar estos sismos dependen de la distancia al epicentro y del movimiento del suelo (desplazamiento, velocidad y aceleración) y se miden según la escala de Intensidad Mercalli, del I al XII. La energía liberada en la zona de ruptura de un sismo se mide en grados según la escala de Magnitud Richter (ej: terremoto Valdivia de 1960, magnitud 9.5 Richter), que no posee limite superior.</p>
+    </section>
+	
+	   <section id="Contactos de emergencia" style="display: none;">
+        <h2>Contactos de emergencia</h2>
+        <p>woooooooooooo</p>
+        <p>aaaaaaaaaaaa</p>
+    </section>
+
+    <section id="Opiniones">
+        <h2>Opiniones</h2>
+        <p>Comparte tu opinión con nosotros sobre cómo mejorar nuestro servicio o cuéntanos tu experiencia en situaciones de emergencia. Tus comentarios son muy valiosos para nosotros.</p>
+        <form>
+            <input type="text" placeholder="Nombre" required><br>
+            <textarea placeholder="Tu opinión..." required></textarea><br>
+            <input type="submit" value="Enviar">
+        </form>
+        <div id="opiniones">
+            <!-- Aquí se mostrarán las opiniones -->
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Servicio de Emergencia Online</p>
+    </footer>
+
+    <script>
+        // Función para mostrar el contenido de la sección correspondiente al hacer clic en el menú
+        function mostrarContenido(contenidoId) {
+            // Ocultar todas las secciones
+            var secciones = document.querySelectorAll('section');
+            secciones.forEach(function(seccion) {
+                seccion.style.display = 'none';
+            });
+
+            // Mostrar la sección correspondiente al contenidoId
+            var seccionMostrar = document.getElementById(contenidoId);
+            seccionMostrar.style.display = 'block';
+
+            // Si la sección es "Opiniones", cargar las opiniones
+            if (contenidoId === 'Opiniones') {
+                cargarOpiniones();
+            }
+        }
+
+        // Función para cargar las opiniones desde un servidor (simulado)
+        function cargarOpiniones() {
+            // Simulación de carga de opiniones
+            var opiniones = [
+                { nombre: 'Juan', opinion: 'Excelente servicio, muy útil la información proporcionada.' },
+                { nombre: 'María', opinion: 'Me gustaría ver más consejos específicos para situaciones de emergencia en la montaña.' },
+                { nombre: 'Pedro', opinion: 'El mapa de desastres es muy completo, gracias por mantenerlo actualizado.' }
+            ];
+
+            // Mostrar las opiniones en la sección correspondiente
+            var opinionesDiv = document.getElementById('opiniones');
+            opinionesDiv.innerHTML = ''; // Limpiar el contenido existente
+            opiniones.forEach(function(opinion) {
+                var opinionHTML = '<div class="opinion"><strong>' + opinion.nombre + ':</strong> ' + opinion.opinion + '</div>';
+                opinionesDiv.innerHTML += opinionHTML;
+            });
+        }
+
+        // Función para mostrar el subtitulo seleccionado y resaltar el subtitulo
+        function mostrarSubtitulo(subtituloId) {
+            // Resaltar y mostrar el subtitulo seleccionado
+            var subtitulos = document.querySelectorAll('h3');
+            var recuadros = document.querySelectorAll('div[id^=""]');
+            subtitulos.forEach(function(subtitulo) {
+                subtitulo.style.fontWeight = 'normal';
+            });
+            recuadros.forEach(function(recuadro) {
+                recuadro.style.display = 'none';
+            });
+
+            // Para resaltar y mostrar el recuadro seleccionado
+            var recuadroMostrar = document.getElementById(subtituloId);
+            recuadroMostrar.style.display = 'block';
+            var subtituloSeleccionado = document.querySelector('h3[id="' + subtituloId + '"]');
+            subtituloSeleccionado.style.fontWeight = 'bold';
+        }
+
+        // Mostrar la sección "Inicio" por defecto al cargar la página
+        window.onload = function() {
+            mostrarContenido('inicio');
+        };
+    </script>
+</body>
+</html>
